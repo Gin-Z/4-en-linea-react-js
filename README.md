@@ -1,16 +1,9 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Proyecto hecho en React + Javascript.
+Está basado en el código del tateti de este mismo repositorio. Se refactorizó el código para tener mayor legibilidad y mantenibilidad.
+Este proyecto usa useState, useEffect, hooks personalizados y localstorage.
+Algunas funciones extras:
+* Muestra un flash rojo al actualizar el valor de un Square.
+* Resalta en verde a los Square de la combinación ganadora.
+* Hace focus en el h2 cuando hay un ganador o empate.
+* Se implementó un botón que muestra un modal con las reglas del juego.
+* Se arregló un bug que permitía seguir jugando después de darle refresh a la página. Aunque hubiera ganador, igual permitía actualizar el Square. Ahora no se permite actualizar cuando hay un ganador o empate.
