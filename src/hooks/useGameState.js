@@ -20,12 +20,21 @@ export const useGameState = () => {
   })
 
   // Estado del ganador
-  const [winner, setWinner] = useState(null)
-  const [winnerCombo, setWinnerCombo] = useState(null)
+  const [winner, setWinner] = useState(() => {
+    const winnerFromStorage = window.localStorage.getItem('winner')
+    if (winnerFromStorage) return JSON.parse(winnerFromStorage)
+    return null
+  })
+
+  const [winnerCombo, setWinnerCombo] = useState(() => {
+    const comboFromStorage = window.localStorage.getItem('winnerCombo')
+    if (comboFromStorage) return JSON.parse(comboFromStorage)
+    return null
+  })
 
   // Función para actualizar el tablero
   const updateBoard = (index) => {
-    if (winner) return
+    if (winner !== null) return
 
     const col = index % COLS
     const lowestIndex = findLowestEmptyIndex(col, board, ROWS, COLS)
@@ -39,18 +48,34 @@ export const useGameState = () => {
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(newTurn)
 
-    saveGameToStorage({
-      board: newBoard,
-      turn: newTurn
-    })
-
     const winnerResult = checkWinnerFrom(newBoard)
     if (winnerResult) {
       confetti()
       setWinner(winnerResult.winner)
       setWinnerCombo(winnerResult.combo)
+      
+      saveGameToStorage({
+        board: newBoard,
+        turn: newTurn,
+        winner: winnerResult.winner,
+        winnerCombo: winnerResult.combo
+      })
     } else if (checkEndGame(newBoard)) {
       setWinner(false)
+      
+      saveGameToStorage({
+        board: newBoard,
+        turn: newTurn,
+        winner: false,
+        winnerCombo: null
+      })
+    } else {
+      saveGameToStorage({
+        board: newBoard,
+        turn: newTurn,
+        winner: null,
+        winnerCombo: null
+      })
     }
   }
 
